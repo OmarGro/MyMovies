@@ -13,9 +13,7 @@ import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CheckBoxOutlineBlank
-import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.filled.PlayCircleOutline
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.outlined.PlayArrow
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -34,7 +32,32 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MyMoviesTheme {
-                MediaList()
+                Scaffold(
+                    topBar = {
+                        TopAppBar(
+                            title = {
+                                Text(
+                                    text = stringResource(id = R.string.app_name)
+                                )
+                            },
+                            navigationIcon = {
+                                IconButton(onClick = { /*TODO*/ }) {
+                                    Icon(imageVector = Icons.Default.Menu, contentDescription = "")
+                                }
+                            },
+                            actions = {
+                                IconButton(onClick = { /*TODO*/ }) {
+                                    Icon(imageVector = Icons.Default.Search, contentDescription = "search")
+                                }
+                                IconButton(onClick = { /*TODO*/ }) {
+                                    Icon(imageVector = Icons.Default.Share, contentDescription = "share")
+                                }
+                            }
+                        )
+                    }
+                ) { padding ->
+                    MediaList(modifier = Modifier.padding(padding))
+                }
             }
         }
     }
@@ -43,10 +66,11 @@ class MainActivity : ComponentActivity() {
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun MediaList() {
+fun MediaList(modifier: Modifier = Modifier) {
     LazyVerticalGrid(
         contentPadding = PaddingValues(2.dp),
-        cells = GridCells.Adaptive(150.dp)
+        cells = GridCells.Adaptive(150.dp),
+        modifier = modifier
     ) {
         items(getMediaItems()) { item ->
             MediaListItem(item, Modifier.padding(2.dp))
