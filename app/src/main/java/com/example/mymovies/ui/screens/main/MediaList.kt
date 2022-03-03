@@ -9,7 +9,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.unit.dp
 import com.example.mymovies.R
 import com.example.mymovies.model.MediaItem
 import com.example.mymovies.model.MediaItemListProvider
@@ -22,8 +21,11 @@ fun MediaList(modifier: Modifier = Modifier, onClick: (MediaItem) -> Unit) {
         cells = GridCells.Adaptive(dimensionResource(id = R.dimen.cell_min_width)),
         modifier = modifier
     ) {
-        items(MediaItemListProvider.getMediaItems()) {
-            MediaListItem(item = it, modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_xsmall))) {
+        items(MediaItemListProvider.getMediaItems()) { mediaItem ->
+            MediaListItem(
+                item = mediaItem,
+                modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_medium))
+            ) {
                 onClick.invoke(it)
             }
         }

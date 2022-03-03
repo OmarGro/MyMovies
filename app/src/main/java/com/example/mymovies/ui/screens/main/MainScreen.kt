@@ -6,16 +6,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
+import com.example.mymovies.model.MediaItem
 
 @Composable
-fun MainScreen(context: Context)  {
+fun MainScreen(context: Context, onClick: (MediaItem) -> Unit)  {
     Scaffold(
         topBar = {
             MainAppBar(context = context)
         }
     ) { padding ->
         MediaList(modifier = Modifier.padding(padding)) {
-            Toast.makeText(context, "${it.title} selected", Toast.LENGTH_LONG).show()
+            onClick.invoke(it)
         }
     }
 }
